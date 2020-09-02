@@ -1,0 +1,37 @@
+{
+  "name": "co-hyperdrive",
+  "version": "0.0.0",
+  "description": "Share a hyperdrive with others. A multiwriter hyperdrive implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard --fix && node test",
+    "build": "protocol-buffers -o ./messages.js schemas.proto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RangerMauve/co-hyperdrive.git"
+  },
+  "keywords": [
+    "hyperdrive",
+    "multiwriter",
+    "dat",
+    "p2p",
+    "collaborative"
+  ],
+  "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/RangerMauve/co-hyperdrive/issues"
+  },
+  "homepage": "https://github.com/RangerMauve/co-hyperdrive#readme",
+  "dependencies": {
+    "multi-hyperdrive": "^1.1.0",
+    "protocol-buffers": "^4.2.0",
+    "protocol-buffers-encodings": "^1.1.0"
+  },
+  "devDependencies": {
+    "dat-sdk": "^2.7.0",
+    "standard": "^14.3.4",
+    "tape": "^5.0.1"
+  }
+}

@@ -1,0 +1,20 @@
+enum AuthType {
+  REQUEST = 1;
+  DENY = 2;
+  ALLOW = 3;
+  IGNORE = 4;
+}
+
+message AuthRequest {
+  required bytes key = 1;
+  required AuthType type = 2;
+}
+
+message WriterStatus {
+  required bool active = 1;
+  optional uint64 timestamp = 2;
+}
+
+message Writers {
+  map<string, WriterStatus> writers = 1;
+}
