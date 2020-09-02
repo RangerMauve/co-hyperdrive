@@ -100,3 +100,19 @@ If you have been added, you will get `granted` true, else if the request times o
 
 - Use vector clocks or bloom clocks for writer resolution instead of wall clocks
 - Account for when you're not directly connected to a writer, but others are (flooding?)
+
+## Credits
+
+Ce logiciel est une réalisation de Wapikoni Mobile, Uhu Labos Nomades et du Bureau de l’engagement communautaire de l’université Concordia.
+Projet financé dans le cadre de l’Entente sur le développement culturel de Montréal conclue entre la Ville de Montréal et gouvernement du Québec.
+
+This project is made possible thanks to the collaboration of Wapikoni mobile and its technical team, Uhu Labos Nomades (Indigenous media arts training project working with Indigenous youth) and Concordia University’s Office of Community Engagement.
+This project was funded under the Montreal cultural development agreement between the city of Montreal and the government of Quebec.
+
+[![Wapikoni Mobile](logos/wapikoni.png)](http://www.wapikoni.ca/home)
+[![Uhu](logos/uhu.jpg)](https://www.facebook.com/uhulabosnomades/)
+[![Concordia University](logos/concordia.png)](http://www.concordia.ca/)
+[![Mauve Software Inc.](logos/mauvesoftwareinc.png)](https://software.mauve.moe/)
+
+![Quebec](logos/quebec.png)
+![Montreal](logos/montreal.jpg)
