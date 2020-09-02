@@ -1,6 +1,6 @@
 {
   "name": "co-hyperdrive",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Share a hyperdrive with others. A multiwriter hyperdrive implementation",
   "main": "index.js",
   "scripts": {
