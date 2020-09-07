@@ -94,9 +94,9 @@ test('Request authorization, get added and read a file', (t) => {
       sendAuth(true)
     }
 
-    const writer = Hyperdrive1('example2')
+    const writer = Hyperdrive2('example2')
 
-    writer.writeFile(FILE, DATA, () => {
+    writer.ready(() => {
       const clone = makeCoHyperdrive(Hyperdrive2, original.key, { onAuth: allowAll })
 
       clone.ready(() => {
@@ -112,12 +112,15 @@ test('Request authorization, get added and read a file', (t) => {
       }
 
       function verifyFile () {
-        clone.readFile(FILE, 'utf8', (err, data) => {
-          t.error(err, 'no error while reading')
-          t.deepEqual(data, DATA, 'got authorized writer data in clone')
-          t.end()
-          close1()
-          close2()
+        clone.writeFile(FILE, DATA, (err) => {
+          t.error(err, 'able to write to clone')
+          clone.readFile(FILE, 'utf8', (err, data) => {
+            t.error(err, 'no error while reading')
+            t.deepEqual(data, DATA, 'got authorized writer data in clone')
+            t.end()
+            close1()
+            close2()
+          })
         })
       }
     })

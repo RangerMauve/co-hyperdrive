@@ -112,7 +112,7 @@ class CoHyperdrive extends MultiHyperdrive {
         if (type === AuthType.ALLOW) {
           this.removeListener('auth-response', handleResponse)
           handled = true
-          cb(null, key)
+          this._loadWriters((err) => cb(err, key))
         } else if (type === AuthType.DENY) {
           cb(null, false)
           handled = true
