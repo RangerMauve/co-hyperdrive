@@ -80,7 +80,7 @@ test('Authorize a writer, read it from another peer', (t) => {
     })
   })
 })
-test('Request authorization, get added and read a file', (t) => {
+test('Request authorization, get added and read a file / dir', (t) => {
   Promise.all([
     SDK({ persist: false }),
     SDK({ persist: false })
@@ -117,9 +117,14 @@ test('Request authorization, get added and read a file', (t) => {
           clone.readFile(FILE, 'utf8', (err, data) => {
             t.error(err, 'no error while reading')
             t.deepEqual(data, DATA, 'got authorized writer data in clone')
-            t.end()
-            close1()
-            close2()
+
+            clone.readdir('/', (err, files) => {
+              t.error(err, 'able to read dir')
+              t.deepEqual(files, [FILE.slice(1)], 'got file list')
+              t.end()
+              close1()
+              close2()
+            })
           })
         })
       }
@@ -168,6 +173,38 @@ test('Authorize a writer, clone, de-authorize, read file', (t) => {
               setTimeout(verifyNoFile, 100)
             })
           })
+        }
+      })
+    })
+  })
+})
+
+test('Read from drive after authorizing', (t) => {
+  Promise.all([
+    SDK({ persist: false }),
+    SDK({ persist: false })
+  ]).then(([
+    { Hyperdrive: Hyperdrive1, close: close1 },
+    { Hyperdrive: Hyperdrive2, close: close2 }
+  ]) => {
+    const original = makeCoHyperdrive(Hyperdrive1, 'example')
+
+    const writer = Hyperdrive1('example2')
+
+    writer.writeFile(FILE, DATA, () => {
+      original.authorize(writer.key, (err) => {
+        t.error(err, 'no error authorizing')
+
+        original.readdir('/', (err, dirs) => {
+          t.error(err, 'able to read dir with mount')
+          t.deepEqual(dirs, [], 'mounted dir visible')
+          cleanup()
+        })
+
+        function cleanup () {
+          t.end()
+          close1()
+          close2()
         }
       })
     })

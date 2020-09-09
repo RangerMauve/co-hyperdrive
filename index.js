@@ -7,7 +7,7 @@ const DEFAULT_OPTS = {
   onAuth: DEFAULT_AUTH
 }
 
-const WRITERS_KEY = '/.writers'
+const WRITERS_KEY = '.writers'
 
 function DEFAULT_AUTH (key, peer, onAuthorized) {
   onAuthorized(false)
@@ -177,7 +177,7 @@ class CoHyperdrive extends MultiHyperdrive {
   }
 
   _getWritersData (cb) {
-    this._runAllDBs('get', [WRITERS_KEY, { ifAvailable: true }], (err, results) => {
+    this._runAllDBs('get', [WRITERS_KEY, { hidden: true }], (err, results) => {
       if (err) return cb(err)
       const writerDatas = results.filter(({ value }) => value).map(({ value }) => value)
       const result = {}
@@ -207,7 +207,7 @@ class CoHyperdrive extends MultiHyperdrive {
 
   _setWritersData (writers, cb) {
     const serialized = Writers.encode({ writers })
-    this.writerOrPrimary.db.put(WRITERS_KEY, serialized, cb)
+    this.writerOrPrimary.db.put(WRITERS_KEY, serialized, { hidden: true }, cb)
   }
 
   _loadWriter (key, cb) {
@@ -216,7 +216,8 @@ class CoHyperdrive extends MultiHyperdrive {
       const drive = this._getDrive(key, { ...this.opts, announce: false, lookup: false })
       this.addDrive(drive, cb)
       drive.ready(() => {
-        drive.db.watch(WRITERS_KEY, () => {
+        drive.watch('/')
+        drive.on('update', () => {
           this._loadWriters((err) => {
             if (err) this.emit('error', err)
           })
