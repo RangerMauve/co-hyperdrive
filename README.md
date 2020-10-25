@@ -10,6 +10,16 @@ Share a hyperdrive with others. A multiwriter hyperdrive implementation
 - Before doing any FS access, resolve all current writers
 - Use extension messages to request authorization from peers.
 
+## Difference from multi-hyperdrive
+
+With multi-hyperdrive, you can get a set of hyperdrives and treat them as a single entity. However, there's nothing built in for making sure every peer has the same set of hyperdrives loaded.
+
+e.g. If P1 and P2 load a multi-hyperdrive, when P1 adds a drive, P2 won't know about it unless the application signals it out of band.
+
+co-hyperdrive makes sure that every peer loading the drive have the same set of underlying hyperdrives loaded.
+
+So if P1 is a writer and they authorize a new drive, P2 will see the new drive was added and automatically load it.
+
 ## Usage
 
 ```
